@@ -1,15 +1,17 @@
+import java.util.HashSet;
+import java.util.Set;
+
 public class Main {
     public static void main(String[] args) {
 
+        Troll troll = new Troll(1,2,2);
 
-        Troll troll1 = new Troll(5, 10, 2);
-        Troll troll2 = new Troll(7, 9, 3);
+        Person person = new Person(20, "Adam", 180);
+        Person person1 = new Person(20, "Adam", 180);
 
-        System.out.println(troll1.def);
-        System.out.println(troll1.attack);
-        System.out.println(troll1.level);
 
-        System.out.println(troll2.attack);
+        Worker worker = new Worker("Dorota", "Polak", 3500, 53);
+        System.out.println(worker.salaryOfYear());
 
     }
 }
