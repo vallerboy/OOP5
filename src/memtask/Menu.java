@@ -54,7 +54,9 @@ public class Menu {
 
     private void printMem() {
         if(memArray != null){
-            System.out.println(memArray.toString());
+            for (Mem mem : memArray) {
+                System.out.println(mem.toString());
+            }
         }else{
             System.out.println("Najpierw zapisz MEMA! :)");
         }
