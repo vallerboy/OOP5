@@ -6,9 +6,10 @@ import java.util.regex.Pattern;
 public class Menu {
 
     private Scanner scanner;
-    private Mem mem;
+    private Mem[] memArray;
 
     public Menu(){
+        memArray = new Mem[5];
         scanner = new Scanner(System.in);
     }
 
@@ -23,6 +24,16 @@ public class Menu {
         }while (!answer.equalsIgnoreCase("exit"));
 
 
+    }
+
+    private void addMemToArray(Mem mem){
+        for (int i = 0; i < memArray.length; i++) {
+            if(memArray[i] == null){
+                memArray[i] = mem;
+                break;
+            }
+        }
+        System.out.println("Nie ma miejsca na nowe memy!");
     }
 
     private void validateAnswer(String answer) {
@@ -42,8 +53,8 @@ public class Menu {
     }
 
     private void printMem() {
-        if(mem != null){
-            System.out.println(mem.toString());
+        if(memArray != null){
+            System.out.println(memArray.toString());
         }else{
             System.out.println("Najpierw zapisz MEMA! :)");
         }
@@ -70,6 +81,6 @@ public class Menu {
             return;
         }
         mem.setUrl(url);
-        this.mem = mem;
+        addMemToArray(mem);
     }
 }
