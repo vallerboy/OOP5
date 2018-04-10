@@ -41,6 +41,15 @@ public class MenuLogic {
         return null;
     }
 
+    public boolean checkIfCategoryExist(String categoryName) {
+        for (Category category : categories) {
+            if(category.getName().equalsIgnoreCase(categoryName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Product[] getProducts(){
         return products;
     }

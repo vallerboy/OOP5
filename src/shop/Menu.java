@@ -1,6 +1,7 @@
 package shop;
 
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Menu {
     private Scanner scanner;
@@ -52,8 +53,19 @@ public class Menu {
         System.out.print("Podaj nazwę: ");
         newCategory.setName(scanner.nextLine());
 
+        if(isCategoryCorrect(newCategory.getName())){
+            System.out.println("Ta jest zła");
+        }
+
         logic.addCategory(newCategory);
         System.out.println("~~~~~Dodano nową kategorie~~~~");
+    }
+
+    private boolean isCategoryCorrect(String name) {
+        if(!Pattern.matches("[A-Z].+", name)){
+            return false;
+        }
+        return logic.checkIfCategoryExist(name);
     }
 
     private void getProductDataFromConsole() {
@@ -61,6 +73,9 @@ public class Menu {
 
         System.out.print("Podaj nazwę: ");
         newProduct.setName(scanner.nextLine());
+
+        System.out.print("Podaj wagę: ");
+        newProduct.setWeight(Float.valueOf(scanner.nextLine()));
 
         System.out.print("Podaj kategorię: ");
         Category category = logic.findCategoryByName(scanner.nextLine());
