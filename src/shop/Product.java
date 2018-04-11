@@ -5,11 +5,6 @@ public class Product {
     private float weight;
     private Category category;
 
-    public Product(String name, Category category) {
-        this.name = name;
-        this.category = category;
-    }
-
     public Product() { }
 
     public String getName() {

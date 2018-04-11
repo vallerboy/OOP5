@@ -79,7 +79,10 @@ public class Menu {
 
         System.out.print("Podaj kategorię: ");
         Category category = logic.findCategoryByName(scanner.nextLine());
-        if (checkCategory(category)) return;
+
+        if (checkCategory(category)) {
+            return;
+        }
 
         newProduct.setCategory(category);
 
