@@ -1,5 +1,7 @@
 package company;
 
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -14,5 +16,7 @@ public class Main {
         company.addWorker(worker2);
 
         System.out.println(company.getMonthlyPaymentForWorkers());
+
+
     }
 }

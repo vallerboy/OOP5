@@ -1,15 +1,14 @@
 package hiera;
 
-public class Worker {
+public class Worker extends Employee {
     private int salary;
     private String name;
 
-    public Worker(int salary, String name) {
+    public Worker(int salary, String name, String lastname) {
+        super(lastname);
+
         this.salary = salary;
         this.name = name;
-    }
-
-    public Worker() {
     }
 
     public int getSalary() {
