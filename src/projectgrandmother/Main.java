@@ -15,7 +15,7 @@ public class Main {
 
         ProductList productList = null;
         try {
-             productList = new ProductList("C:\\asd\\zakupy.txt");
+             productList = new ProductList("C:\\asd\\zakupy.txt", 5, 2, 1, 0.10, 0.20, 0.50);
         } catch (IOException e) {
             System.out.println("Nie udało załadować się pliku");
             System.exit(1);
@@ -25,6 +25,7 @@ public class Main {
         System.out.println(productList.getMaxProduct());
         System.out.println(productList.getTotalPrice());
         System.out.println(productList.hasListDoubleProduct());
+        System.out.println(productList.getMinMonetCountToPay());
     }
 
 }

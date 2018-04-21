@@ -3,20 +3,37 @@ package projectgrandmother;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class ProductList {
 
     private File productListFile;
     private List<Product> productList;
+    private double[] nominals;
 
-    public ProductList(String pathToFile) throws IOException {
+    public ProductList(String pathToFile, double ... nominals) throws IOException {
         productListFile = new File(pathToFile);
         productList = new ArrayList<>();
+        this.nominals = nominals;
 
-        parseProductListFromString(Utils.readFileContent(productListFile));
+        startParsing();
     }
 
+    private void startParsing() throws IOException, IllegalStateException {
+        String content  = Utils.readFileContent(productListFile);
+        if(checkFileContent(content)){
+            parseProductListFromString(content);
+        }else{
+            throw new IllegalStateException("Incorrect content of file");
+        }
+    }
+
+    private boolean checkFileContent(String content){
+        //return Pattern.matches("(.+:.+:.+/?)+", content); //todo
+        return true;
+    }
 
     private void parseProductListFromString(String productsString){
         String[] products = productsString.split("/");
@@ -56,6 +73,26 @@ public class ProductList {
             }
         }
         return false;
+    }
+
+
+    public int getMinMonetCountToPay(){
+        Arrays.sort(nominals);
+
+        double totalPrice = getTotalPrice();
+        int counter = nominals.length - 1;
+        int monetCounter = 0;
+
+        while (totalPrice != 0) {
+            if(totalPrice - nominals[counter] >= 0) {
+                totalPrice -= nominals[counter];
+                monetCounter++;
+            }else{
+                counter--;
+            }
+        }
+
+        return monetCounter;
     }
 
 }
