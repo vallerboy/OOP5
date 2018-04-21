@@ -40,4 +40,13 @@ public class Product {
 
         return Objects.hash(name, price, count);
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", count=" + count +
+                '}';
+    }
 }
