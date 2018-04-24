@@ -2,25 +2,41 @@ package reflection;
 
 import sun.security.jca.GetInstance;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class Main {
     public static void main(String[] args) {
+        docStrategy();
+    }
 
-        Method[] methodsInMyClass = Person.class.getDeclaredMethods();
-        try {
-            Person person  = Person.class.newInstance();
+    public static void docStrategy(){
+        Method[] methods = Person.class.getDeclaredMethods();
+        Field[] fields = Person.class.getDeclaredFields();
+        Constructor[] constructors = Person.class.getConstructors();
 
-            for (Method inMyClass : methodsInMyClass) {
-                if(inMyClass.getName().equals("shout")){
-                    inMyClass.invoke(person, null);
-                }
+        for (Method method : methods) {
+            if(method.isAnnotationPresent(Doc.class)){
+                System.out.println(method.getAnnotation(Doc.class).info());
             }
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
         }
 
+
+        for (Field field : fields) {
+            if(field.isAnnotationPresent(Doc.class)){
+                System.out.println(field.getAnnotation(Doc.class).info());
+            }
+        }
+
+        for (Constructor constructor : constructors) {
+            if(constructor.isAnnotationPresent(Doc.class)){
+                System.out.println(constructor.getAnnotation(Doc.class));
+            }
+        }
 
     }
 }
