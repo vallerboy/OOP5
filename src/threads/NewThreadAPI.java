@@ -1,6 +1,12 @@
 package threads;
 
-import java.util.concurrent.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 
 public class NewThreadAPI {
     public static void main(String[] args) {
@@ -11,10 +17,8 @@ public class NewThreadAPI {
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                while (true) {
-                    threadAPI.startSomething();
-                }
-
+                while (true)
+                threadAPI.startListingToPlayers();
             }
         });
 
@@ -22,30 +26,48 @@ public class NewThreadAPI {
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                while (true) {
-                    threadAPI.startSomethingElse();
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+                while (true)
+                threadAPI.playing();
             }
         });
 
 
     }
 
-    public  synchronized void startSomething(){
-            System.out.println("HEY!");
+    List<String> players = new ArrayList<>();
+    boolean isGameStarted = false;
+
+    public  synchronized void startListingToPlayers(){
+        players.add("Oskar");
+        players.add("Damian");
+        players.add("Dominika");
+        System.out.println("Nasłuchuje na graczy");
+        //Nasłuchiwanie skończone (gra się zaczyna)
+        //Nie potrzebuje nasłuchiwać
         try {
+            isGameStarted = true;
+            notify();
             wait();
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public synchronized void startSomethingElse() {
-            //notify();
+    public synchronized void playing(){
+        if(!isGameStarted) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("GRAMYYYY!");
+        //jakas logika gry
+        //gra sie konczy
+        notify();
+        isGameStarted = false;
     }
+
+
 }
